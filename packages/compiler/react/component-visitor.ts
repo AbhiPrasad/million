@@ -10,6 +10,7 @@ import {
 import { callExpressionVisitor } from './call-expression-visitor';
 import type { NodePath } from '@babel/core';
 import type { Options } from '../plugin';
+import generate from '@babel/generator';
 
 export const componentVisitor = (options: Options = {}, isReact = true) => {
   return (
@@ -316,6 +317,8 @@ export const componentVisitor = (options: Options = {}, isReact = true) => {
     const visitor = callExpressionVisitor(
       { mute: 'info', ...options },
       isReact,
+      false,
+      rawComponent.id.name,
     );
     handleVisitorError(
       () => visitor(rewrittenComponentPath, new Map(), file),

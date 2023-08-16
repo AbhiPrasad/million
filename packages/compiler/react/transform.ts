@@ -32,6 +32,7 @@ export const transformComponent = (
     componentBodyPath: NodePath<t.Node>;
   },
   SHARED: Shared,
+  name = 'default',
 ) => {
   const {
     file,
@@ -279,6 +280,11 @@ export const transformComponent = (
     }
   }
 
+  // console.log(originalComponent);
+  // if (t.isJSXElement(returnStatement.argument)) {
+  //   console.log(returnStatement.argument.openingElement);
+  // }
+
   const compiledOptions = [
     t.objectProperty(
       t.identifier('svg'),
@@ -296,6 +302,7 @@ export const transformComponent = (
       t.identifier('original'),
       options.server ? (originalComponent.id as t.Identifier) : t.nullLiteral(),
     ),
+    t.objectProperty(t.identifier('name'), t.stringLiteral(name)),
     t.objectProperty(t.identifier('shouldUpdate'), createDirtyChecker(holes)),
   ];
 

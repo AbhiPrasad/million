@@ -18,6 +18,7 @@ export const callExpressionVisitor = (
   options: Options = {},
   isReact = true,
   unstable = false,
+  name = 'default',
 ) => {
   return (
     callSitePath: NodePath<t.CallExpression>,
@@ -335,6 +336,7 @@ export const callExpressionVisitor = (
           ),
         },
         SHARED,
+        name,
       );
     } else if (t.isFunctionDeclaration(Component)) {
       /**
